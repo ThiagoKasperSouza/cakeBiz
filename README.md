@@ -1,59 +1,54 @@
-# FirstApp
+# Delizia
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.6.
+Vitrine responsiva de confeitaria artesanal, feita em Angular. Inclui cardápio por categoria, carrinho e uma interface de conversa preparada para um backend Python com Pinecone Assistant.
 
-## Development server
-
-To start a local development server, run:
+## Executar
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+O app fica disponível em `http://localhost:4200`.
 
-## Code scaffolding
+## Páginas
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Cada aba da navegação é uma página standalone em `src/app/pages`, registrada em `src/app/app.routes.ts`. A página inicial fica em `pages/home`; o cardápio e seus filtros ficam em `pages/menu`. Os serviços compartilhados ficam em `src/app/core/services`: `OrderService` mantém o carrinho entre rotas e `AssistantService` integra o chat com a API.
 
-```bash
-ng generate component component-name
+## API do assistente
+
+O frontend envia mensagens para `POST /api/assistant/chat`. Configure o backend Python (ou um proxy de desenvolvimento) para atender essa rota; o navegador não deve receber chaves do Pinecone.
+
+Corpo enviado:
+
+```json
+{
+  "message": "Quais são os bolos mais pedidos?",
+  "conversation_id": null,
+  "items": [
+    {
+      "product_id": "chocolate-dream",
+      "name": "Chocolate dos Sonhos",
+      "quantity": 1,
+      "unit_price": 89.9
+    }
+  ]
+}
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Resposta esperada:
 
-```bash
-ng generate --help
+```json
+{
+  "reply": "O Chocolate dos Sonhos é o nosso mais pedido!",
+  "conversation_id": "id-da-conversa"
+}
 ```
 
-## Building
+O serviço Python deve manter o identificador de conversa do Pinecone, chamar o assistente e devolver a resposta neste formato. Sem a API disponível, o chat informa que não conseguiu conectar; o catálogo e o carrinho continuam funcionando localmente.
 
-To build the project run:
+## Finalizar pedido pelo WhatsApp
 
-```bash
-ng build
-```
+O botão de checkout abre um link `wa.me` com os itens e o total do carrinho em uma mensagem pré-preenchida. O cliente confirma o envio no próprio WhatsApp e combina por lá a retirada ou a entrega.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+O número atual é fictício (`+55 (00) 00000-0000`) e serve apenas como demonstração. Antes de publicar, substitua `WHATSAPP_NUMBER` em `src/app/core/services/order.service.ts` por um número real com código do país e somente dígitos, sem `+`, espaços ou pontuação. A mensagem é preparada no frontend; o app não envia mensagens automaticamente.
