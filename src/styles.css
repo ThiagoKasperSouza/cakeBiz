@@ -331,15 +331,13 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .user-avatar { background: #eadbd2; color: #62473b; font-size: 8px; font-weight: 700; }
 .message-bubble { max-width: 83%; padding: 10px 11px; border-radius: 12px 12px 12px 3px; background: #f8eee6; color: #47342e; font-size: 10px; line-height: 1.55; overflow-wrap: anywhere; }
 .message-bubble.user-bubble { border-radius: 12px 12px 3px 12px; background: #59332f; color: #fff8f1; }
-.typing { display: flex; gap: 4px; }
-.typing span { width: 5px; height: 5px; border-radius: 50%; background: #b28a71; animation: typing 1s infinite ease-in-out; }
-.typing span:nth-child(2) { animation-delay: .12s; }
-.typing span:nth-child(3) { animation-delay: .24s; }
-@keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-3px); opacity: 1; } }
 .suggestions { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 2px 14px 12px 45px; }
 .suggestions > span { margin-bottom: 1px; color: #9a877b; font-size: 8px; }
 .suggestions button { padding: 6px 9px; border: 1px solid #ead9ca; border-radius: 14px; background: transparent; color: #765a48; cursor: pointer; font-size: 8px; text-align: left; }
 .suggestions button:hover { border-color: #d6a86e; background: #fff3e4; }
+.suggestions button:focus-visible, .message-action:focus-visible { outline: 2px solid #b97c42; outline-offset: 2px; }
+.message-action { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 7px 10px; border-radius: 14px; background: #f5bb60; color: #49342d; font-weight: 700; text-decoration: none; }
+.message-action:hover { background: #ffca76; }
 .order-summary { flex: 0 0 auto; margin: 0 12px 10px; padding: 11px; border: 1px solid #efe0d4; border-radius: 12px; background: #fffaf6; }
 .summary-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; font-size: 10px; font-weight: 700; }
 .summary-heading button { border: 0; background: none; color: #a37861; cursor: pointer; font-size: 8px; }
@@ -356,17 +354,6 @@ button:focus-visible, a:focus-visible, input:focus-visible {
 .summary-total { display: flex; justify-content: space-between; margin-top: 7px; padding-top: 9px; border-top: 1px solid #ead9cd; font-size: 10px; }
 .checkout-button { display: flex; width: 100%; justify-content: center; align-items: center; gap: 8px; margin-top: 10px; padding: 10px; border: 0; border-radius: 18px; background: #f5bb60; cursor: pointer; font-size: 10px; font-weight: 700; transition: .2s; }
 .whatsapp-note { margin: 7px 0 0; color: #9a877b; font-size: 8px; line-height: 1.45; text-align: center; }
-.chat-composer { display: flex; flex: 0 0 auto; align-items: center; gap: 7px; margin: 0 11px; padding: 5px; border: 1px solid #eadcd1; border-radius: 24px; background: white; }
-.attach-button, .send-button { display: grid; flex: 0 0 auto; place-items: center; border: 0; cursor: pointer; }
-.attach-button { width: 29px; height: 29px; border-radius: 50%; background: #f8f0e8; color: #796356; font-size: 20px; }
-.attach-button:disabled { cursor: not-allowed; opacity: .7; }
-.chat-composer input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #49342d; font-size: 9px; }
-.chat-composer input::placeholder { color: #a08d82; }
-.chat-composer input:focus-visible { outline: 0; }
-.send-button { width: 31px; height: 31px; border-radius: 50%; background: #57332f; color: #fff8f1; transition: background .2s; }
-.send-button:hover:not(:disabled) { background: #71413a; }
-.send-button:disabled { cursor: not-allowed; opacity: .45; }
-.send-button svg { width: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
 .assistant-footnote { flex: 0 0 auto; margin: 7px 0 9px; color: #aa9990; font-size: 7px; text-align: center; }
 .assistant-launcher { position: fixed; z-index: 10; right: 25px; bottom: 25px; display: flex; align-items: center; gap: 8px; padding: 12px 17px; border: 0; border-radius: 24px; background: #54302e; box-shadow: 0 6px 20px rgba(52, 29, 23, .25); color: #fff6e9; cursor: pointer; }
 .assistant-launcher > span:first-child { color: #f5b95e; font-size: 17px; }

@@ -26,6 +26,10 @@ export class OrderService {
 
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   });
+  readonly whatsappSpecialOrderUrl = computed(() => {
+    const message = 'Olá, Delizia! Gostaria de conversar sobre uma encomenda especial.';
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  });
 
   add(product: Product): void {
     this.cart.update((items) => {

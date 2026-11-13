@@ -37,7 +37,7 @@
             <svg viewBox="0 0 24 24"><path d="M12 2.5 14.2 9l6.3 2.5-6.3 2.2L12 20l-2.2-6.3L3.5 11.5 9.8 9 12 2.5Z" /><path d="m19 15 .9 2.2L22 18l-2.1.9L19 21l-.8-2.1L16 18l2.2-.8L19 15Z" /></svg>
           </div>
           <div>
-            <h2>Assistente Delizia</h2>
+            <h2>Atendimento Delizia</h2>
             <p><span></span> Aqui para adoçar seu dia</p>
           </div>
           <button class="close-chat" type="button" aria-label="Fechar assistente" (click)="toggleAssistant()">×</button>
@@ -47,7 +47,7 @@
           <div class="welcome-sparkle" aria-hidden="true">✦</div>
           <div>
             <strong>Olá! Que bom ter você aqui.</strong>
-            <p>Posso ajudar a escolher um doce ou montar seu pedido. 🍰</p>
+            <p>Escolha uma opção para continuar. 🍰</p>
           </div>
         </div>
 
@@ -59,18 +59,17 @@
               }
               <div class="message-bubble" [class.user-bubble]="message.role === 'user'">
                 {{ message.content }}
+                @if (message.action?.kind === 'internal') {
+                  <a class="message-action" [routerLink]="message.action.target">{{ message.action.label }}</a>
+                } @else if (message.action?.kind === 'external') {
+                  <a class="message-action" [href]="message.action.target" target="_blank" rel="noopener noreferrer">
+                    {{ message.action.label }} <span aria-hidden="true">↗</span>
+                  </a>
+                }
               </div>
               @if (message.role === 'user') {
                 <div class="user-avatar" aria-hidden="true">Você</div>
               }
-            </div>
-          }
-          @if (isSending()) {
-            <div class="message-row">
-              <div class="bot-avatar" aria-hidden="true">✳</div>
-              <div class="message-bubble typing" aria-label="Assistente digitando">
-                <span></span><span></span><span></span>
-              </div>
             </div>
           }
         </div>
@@ -104,30 +103,14 @@
               WhatsApp demonstrativo: +55 (00) 00000-0000. Você confirma o envio da mensagem no WhatsApp.
             </p>
           </section>
-        } @else {
-          <div class="suggestions">
-            <span>Você pode perguntar</span>
-            <button type="button" (click)="askSuggestion('Quais são os bolos mais pedidos?')">Qual bolo vocês recomendam?</button>
-            <button type="button" (click)="askSuggestion('Vocês fazem encomendas para festas?')">Quero fazer uma encomenda</button>
-          </div>
         }
 
-        <form class="chat-composer" (ngSubmit)="sendMessage()">
-          <button class="attach-button" type="button" aria-label="Anexar arquivo" disabled>＋</button>
-          <input
-            type="text"
-            name="message"
-            aria-label="Escreva sua mensagem"
-            placeholder="Escreva sua mensagem..."
-            [ngModel]="draft()"
-            (ngModelChange)="draft.set($event)"
-            [disabled]="isSending()"
-          />
-          <button class="send-button" type="submit" aria-label="Enviar mensagem" [disabled]="isSending() || !draft().trim()">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-7.2 18-3.8-7-7-3.8L21 3Z" /><path d="M10 14 21 3" /></svg>
-          </button>
-        </form>
-        <p class="assistant-footnote">A assistente pode cometer erros. Confirme os detalhes do pedido.</p>
+        <div class="suggestions">
+          <span>Escolha como podemos ajudar</span>
+          <button type="button" (click)="chooseFlow('recommendation')">Qual bolo vocês recomendam?</button>
+          <button type="button" (click)="chooseFlow('special-order')">Quero fazer uma encomenda especial</button>
+        </div>
+        <p class="assistant-footnote">Atendimento por opções. Seu pedido é finalizado pelo WhatsApp.</p>
       </aside>
     }
   </div>
