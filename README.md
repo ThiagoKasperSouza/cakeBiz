@@ -11,6 +11,13 @@ npm start
 
 O app fica disponível em `http://localhost:4200`.
 
+## API de produtos
+
+O cardápio carrega os produtos com `GET http://localhost:8000/products?skip=0&limit=100`.
+O backend deve permitir requisições CORS da origem do frontend (`http://localhost:4200`).
+Cada produto deve incluir `id`, `name`, `description`, `price`, `rating`, `image_url` e
+`category_id` (`cakes`, `cupcakes`, `cookies` ou `coffee`).
+
 ## Páginas
 
 Cada aba da navegação é uma página standalone em `src/app/pages`, registrada em `src/app/app.routes.ts`. A página inicial fica em `pages/home`; o cardápio e seus filtros ficam em `pages/menu`. Os serviços compartilhados ficam em `src/app/core/services`: `OrderService` mantém o carrinho entre rotas e `AssistantService` integra o chat com a API.
