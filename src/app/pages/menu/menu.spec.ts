@@ -21,7 +21,7 @@ describe('Menu', () => {
     fixture.detectChanges();
     httpTesting.expectOne(
       (request) =>
-        request.url === 'http://localhost:8000/products' &&
+        request.url === '/api/products' &&
         request.params.get('skip') === '0' &&
         request.params.get('limit') === '100',
     ).flush([

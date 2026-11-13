@@ -13,8 +13,11 @@ O app fica disponível em `http://localhost:4200`.
 
 ## API de produtos
 
-O cardápio carrega os produtos com `GET http://localhost:8000/products?skip=0&limit=100`.
-O backend deve permitir requisições CORS da origem do frontend (`http://localhost:4200`).
+No desenvolvimento, o cardápio carrega os produtos com `GET /api/products?skip=0&limit=100`.
+O servidor Angular encaminha essa rota para `http://localhost:8000/products`, evitando CORS
+entre o navegador e a API local. Em produção, configure um proxy equivalente no servidor web
+ou habilite CORS no backend para a origem do frontend.
+
 Cada produto deve incluir `id`, `name`, `description`, `price`, `rating`, `image_url` e
 `category_id` (`cakes`, `cupcakes`, `cookies` ou `coffee`).
 

@@ -19,7 +19,7 @@ export class ProductService {
 
   getProducts(): Observable<Product[]> {
     return this.http
-      .get<ApiProduct[]>('http://localhost:8000/products', {
+      .get<ApiProduct[]>('/api/products', {
         params: { skip: 0, limit: 100 },
       })
       .pipe(

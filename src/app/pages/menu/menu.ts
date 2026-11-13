@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { afterNextRender, Component, computed, inject, signal } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { OrderService } from '../../core/services/order.service';
 import { ProductService } from '../../core/services/product.service';
@@ -27,7 +27,7 @@ export class Menu {
   });
 
   constructor() {
-    this.loadProducts();
+    afterNextRender(() => this.loadProducts());
   }
 
   protected loadProducts(): void {
